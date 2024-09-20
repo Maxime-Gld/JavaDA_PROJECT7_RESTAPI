@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -31,6 +33,7 @@ public class BidList {
     String trader;
     String book;
     String creationName;
+    @CreationTimestamp
     Timestamp creationDate;
     String revisionName;
     Timestamp revisionDate;

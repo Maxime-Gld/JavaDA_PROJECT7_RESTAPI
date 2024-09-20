@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -30,6 +32,7 @@ public class Trade {
     String trader;
     String book;
     String creationName;
+    @CreationTimestamp
     Timestamp creationDate;
     String revisionName;
     Timestamp revisionDate;

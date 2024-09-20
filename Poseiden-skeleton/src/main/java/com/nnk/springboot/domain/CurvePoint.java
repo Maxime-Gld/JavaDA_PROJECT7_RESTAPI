@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -21,6 +23,7 @@ public class CurvePoint {
     Timestamp asOfDate;
     Double term;
     Double value;
+    @CreationTimestamp
     Timestamp creationDate;
 
     public CurvePoint(int curveId, double term, double value) {
