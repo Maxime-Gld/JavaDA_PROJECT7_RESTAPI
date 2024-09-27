@@ -40,10 +40,7 @@ public class BidListServiceImpl implements BidListService {
      */
     @Override
     public void deleteBidList(Integer id) {
-        BidList bid = bidListRepository.findById(id).orElse(null);
-        if (bid != null) {
-            bidListRepository.delete(bid);
-        }
+        bidListRepository.deleteById(id);
     }
 
     /**

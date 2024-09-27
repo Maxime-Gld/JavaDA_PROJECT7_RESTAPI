@@ -187,13 +187,10 @@ public class BidListServiceImplTest {
         // Configure le mock pour retourner la BidList existante
         when(bidListRepository.findById(1)).thenReturn(Optional.of(bid));
 
-        // Configure le mock pour ne rien faire lors de la suppression
-        doNothing().when(bidListRepository).delete(bid);
-
         // Appelle la méthode à tester
-        bidListService.deleteBidList(1);
+        bidListService.deleteBidList(bid.getBidListId());
 
         // Vérifie que la méthode delete du repository a été appelée une fois
-        verify(bidListRepository, times(1)).delete(bid);
+        verify(bidListRepository, times(1)).deleteById(bid.getBidListId());
     }
 }
