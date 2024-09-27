@@ -42,12 +42,12 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public Rating findById(Integer id) {
+    public Rating getRatingById(Integer id) {
         return ratingRepository.findById(id).orElse(null);
     }
 
     @Override
-    public List<Rating> findAll() {
+    public List<Rating> getAllRatings() {
         return ratingRepository.findAll();
     }
 }

@@ -15,7 +15,7 @@ public interface RatingService {
 
     void deleteRating(Integer id);
 
-    Rating findById(Integer id);
+    Rating getRatingById(Integer id);
 
-    List<Rating> findAll();
+    List<Rating> getAllRatings();
 }
