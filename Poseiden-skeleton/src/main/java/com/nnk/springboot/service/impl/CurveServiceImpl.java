@@ -65,7 +65,7 @@ public class CurveServiceImpl implements CurveService {
      * @param curvePointUpdated Le nouveau CurvePoint.
      */
     @Override
-    public void updateCurve(int curveId, CurvePoint curvePointUpdated) {
+    public void updateCurve(Integer curveId, CurvePoint curvePointUpdated) {
         Optional<CurvePoint> curvePoint = curvePointRepository.findById(curveId);
         if (curvePoint.isPresent()) {
             CurvePoint curvePointFound = curvePoint.get();
@@ -81,7 +81,7 @@ public class CurveServiceImpl implements CurveService {
      * @param curveId L'ID du CurvePoint à supprimer.
      */
     @Override
-    public void deleteCurve(int curveId) {
+    public void deleteCurve(Integer curveId) {
         curvePointRepository.deleteById(curveId);
     }
 }

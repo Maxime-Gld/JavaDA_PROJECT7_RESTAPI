@@ -8,9 +8,9 @@ public interface CurveService {
 
     void createCurve(CurvePoint curvePoint);
 
-    void updateCurve(int id, CurvePoint curvePoint);
+    void updateCurve(Integer id, CurvePoint curvePoint);
 
-    void deleteCurve(int curveId);
+    void deleteCurve(Integer curveId);
 
     List<CurvePoint> getAllCurvePoints();
 

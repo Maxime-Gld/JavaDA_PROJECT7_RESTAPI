@@ -11,7 +11,7 @@ public interface RatingService {
 
     void createRating(Rating rating);
 
-    void updateRating(int id, Rating rating);
+    void updateRating(Integer id, Rating rating);
 
     void deleteRating(Integer id);
 

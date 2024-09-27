@@ -24,7 +24,7 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public void updateRating(int id, Rating ratingUpdated) {
+    public void updateRating(Integer id, Rating ratingUpdated) {
         Optional<Rating> rating = ratingRepository.findById(id);
         if (rating.isPresent()) {
             Rating ratingFound = rating.get();
