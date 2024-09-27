@@ -160,22 +160,24 @@ public class BidListServiceImplTest {
 
     /**
      * Teste la mise à jour d'une BidList qui n'existe pas.
+     *
      * 
-     * @Test
-     *       public void testUpdateBidListNotFound() {
-     *       // Configure le mock pour retourner un Optional vide lors de la
-     *       recherche
-     *       when(bidListRepository.findById(1)).thenReturn(Optional.empty());
-     * 
-     *       // Appelle la méthode à tester
-     *       bidListService.updateBidList(1, "Updated Account", "Updated Type",
-     *       20.0);
-     * 
-     *       // Vérifie que les méthodes findById et save n'ont pas été appelées
-     *       verify(bidListRepository, times(1)).findById(1);
-     *       verify(bidListRepository, never()).save(any(BidList.class));
-     *       }
      */
+    @Test
+    public void testUpdateBidListNotFound() {
+        // Crée une nouvelle BidList avec les nouvelles informations
+        BidList updatedBid = new BidList("Updated Account", "Updated Type", 20.0);
+
+        // Configure le mock pour retourner un Optional vide lors de la recherche
+        when(bidListRepository.findById(1)).thenReturn(Optional.empty());
+
+        // Appelle la méthode à tester
+        bidListService.updateBidList(1, updatedBid);
+
+        // Vérifie que les méthodes findById et save n'ont pas été appelées
+        verify(bidListRepository, times(1)).findById(1);
+        verify(bidListRepository, never()).save(any(BidList.class));
+    }
 
     /**
      * Teste la suppression d'une BidList.
