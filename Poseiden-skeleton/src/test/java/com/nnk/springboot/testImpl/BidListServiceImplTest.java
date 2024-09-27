@@ -50,13 +50,15 @@ public class BidListServiceImplTest {
     public void testCreateBidList() {
         // Configure le comportement du mock pour la méthode save
         when(bidListRepository.save(any(BidList.class))).thenReturn(bid);
+        ArgumentCaptor<BidList> bidCaptor = ArgumentCaptor.forClass(BidList.class);
 
         // Appelle la méthode à tester
         bidListService.createBidList(bid);
 
         // Vérifie que la méthode save du repository a été appelée une fois
-        ArgumentCaptor<BidList> bidCaptor = ArgumentCaptor.forClass(BidList.class);
         verify(bidListRepository, times(1)).save(bidCaptor.capture());
+
+        // Vérifie que les informations de la BidList sont correctes
         assertEquals(bidCaptor.getValue().getAccount(), "Account Test");
         assertEquals(bidCaptor.getValue().getType(), "Type Test");
         assertEquals(bidCaptor.getValue().getBidQuantity(), 10.0);

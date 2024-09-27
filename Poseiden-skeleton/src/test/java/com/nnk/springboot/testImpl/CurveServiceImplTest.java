@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -49,12 +50,18 @@ public class CurveServiceImplTest {
     public void testCreateCurve() {
         // Configure le comportement du mock pour la méthode save
         when(curvePointRepository.save(any(CurvePoint.class))).thenReturn(curvePoint);
+        ArgumentCaptor<CurvePoint> curveCaptor = ArgumentCaptor.forClass(CurvePoint.class);
 
         // Appelle la méthode à tester
         curveService.createCurve(curvePoint);
 
         // Vérifie que la méthode save du repository a été appelée une fois
-        verify(curvePointRepository, times(1)).save(any(CurvePoint.class));
+        verify(curvePointRepository, times(1)).save(curveCaptor.capture());
+
+        // Vérifie que les informations du CurvePoint sont correctes
+        assertEquals(curveCaptor.getValue().getCurveId(), curvePoint.getCurveId());
+        assertEquals(curveCaptor.getValue().getTerm(), curvePoint.getTerm());
+        assertEquals(curveCaptor.getValue().getValue(), curvePoint.getValue());
     }
 
     /**

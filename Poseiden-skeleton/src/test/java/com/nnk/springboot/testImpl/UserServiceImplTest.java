@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -53,18 +54,18 @@ public class UserServiceImplTest {
     public void testCreateUser() {
         // Configure le comportement du mock pour la méthode save
         when(userRepository.save(user)).thenReturn(user);
+        ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
 
         // Appelle la méthode à tester
         User createdUser = userService.createUser(user);
 
-        // Vérifie que l'utilisateur créé n'est pas nul
-        assertNotNull(createdUser);
-
-        // Vérifie que le nom complet de l'utilisateur créé correspond à celui attendu
-        assertEquals(user.getFullname(), createdUser.getFullname());
-
         // Vérifie que la méthode save du repository a été appelée une fois
-        verify(userRepository, times(1)).save(user);
+        verify(userRepository, times(1)).save(userCaptor.capture());
+
+        // Vérifie que les informations de l'utilisateur sont correctes
+        assertEquals(userCaptor.getValue().getFullname(), createdUser.getFullname());
+        assertEquals(userCaptor.getValue().getRole(), createdUser.getRole());
+        assertEquals(userCaptor.getValue().getPassword(), createdUser.getPassword());
     }
 
     /**
