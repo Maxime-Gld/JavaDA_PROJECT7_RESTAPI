@@ -10,7 +10,7 @@ public interface CurveService {
 
     void updateCurve(int id, CurvePoint curvePoint);
 
-    void deleteCurveById(int curveId);
+    void deleteCurve(int curveId);
 
     List<CurvePoint> getAllCurvePoints();
 

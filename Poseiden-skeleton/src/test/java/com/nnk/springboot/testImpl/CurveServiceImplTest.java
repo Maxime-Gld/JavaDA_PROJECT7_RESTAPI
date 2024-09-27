@@ -184,7 +184,7 @@ public class CurveServiceImplTest {
         when(curvePointRepository.findById(1)).thenReturn(Optional.of(curvePoint));
 
         // Appelle la méthode à tester
-        curveService.deleteCurveById(curvePoint.getCurveId());
+        curveService.deleteCurve(curvePoint.getCurveId());
 
         // Vérifie que la méthode deleteById du repository a été appelée une fois
         verify(curvePointRepository, times(1)).deleteById(curvePoint.getCurveId());

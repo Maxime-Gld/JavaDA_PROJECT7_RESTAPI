@@ -81,7 +81,7 @@ public class CurveServiceImpl implements CurveService {
      * @param curveId L'ID du CurvePoint à supprimer.
      */
     @Override
-    public void deleteCurveById(int curveId) {
+    public void deleteCurve(int curveId) {
         curvePointRepository.deleteById(curveId);
     }
 }
