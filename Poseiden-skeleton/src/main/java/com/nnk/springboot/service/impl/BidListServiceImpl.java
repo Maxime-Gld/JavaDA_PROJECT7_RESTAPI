@@ -1,6 +1,9 @@
 package com.nnk.springboot.service.impl;
 
 import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
 import com.nnk.springboot.service.BidListService;
@@ -9,6 +12,7 @@ import com.nnk.springboot.service.BidListService;
  * Implémentation du service pour gérer les opérations CRUD
  * sur l'entité {@link BidList}.
  */
+@Service
 public class BidListServiceImpl implements BidListService {
 
     private BidListRepository bidListRepository;

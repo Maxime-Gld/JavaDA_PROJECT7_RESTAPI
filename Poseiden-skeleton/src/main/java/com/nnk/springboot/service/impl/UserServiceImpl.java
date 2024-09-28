@@ -3,6 +3,8 @@ package com.nnk.springboot.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.service.UserService;
@@ -11,6 +13,7 @@ import com.nnk.springboot.service.UserService;
  * Implémentation du service utilisateur qui gère les opérations CRUD
  * liées à l'entité {@link User}.
  */
+@Service
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;

@@ -3,6 +3,8 @@ package com.nnk.springboot.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.repositories.RuleNameRepository;
 import com.nnk.springboot.service.RuleNameService;
@@ -10,6 +12,7 @@ import com.nnk.springboot.service.RuleNameService;
 /**
  * Implémentation du service pour gérer les entités RuleName.
  */
+@Service
 public class RuleNameServiceImpl implements RuleNameService {
 
     private RuleNameRepository ruleNameRepository;

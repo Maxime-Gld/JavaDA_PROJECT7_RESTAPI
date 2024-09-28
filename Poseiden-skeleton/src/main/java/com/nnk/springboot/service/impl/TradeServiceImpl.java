@@ -3,6 +3,8 @@ package com.nnk.springboot.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.TradeRepository;
 import com.nnk.springboot.service.TradeService;
@@ -11,6 +13,7 @@ import com.nnk.springboot.service.TradeService;
  * Implémentation du service {@link TradeService} pour gérer les opérations sur
  * les objets Trade.
  */
+@Service
 public class TradeServiceImpl implements TradeService {
 
     private TradeRepository tradeRepository;
