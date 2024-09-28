@@ -1,6 +1,7 @@
 package com.nnk.springboot.testImpl;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
@@ -48,12 +49,14 @@ public class UserServiceImplTest {
     }
 
     /**
-     * Teste la création d'un utilisateur.
+     * Teste la création d'un utilisateur en utilisant un ArgumentCaptor pour
+     * capturer et
+     * vérifier l'objet User sauvegardé.
      */
     @Test
     public void testCreateUser() {
-        // Configure le comportement du mock pour la méthode save
-        when(userRepository.save(user)).thenReturn(user);
+        // Utilisation d'ArgumentCaptor pour capturer l'argument passé à
+        // userRepository.save
         ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
 
         // Appelle la méthode à tester

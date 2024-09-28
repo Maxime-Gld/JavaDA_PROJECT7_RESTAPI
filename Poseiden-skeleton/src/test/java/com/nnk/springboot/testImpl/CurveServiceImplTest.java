@@ -1,6 +1,7 @@
 package com.nnk.springboot.testImpl;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
@@ -44,12 +45,13 @@ public class CurveServiceImplTest {
     }
 
     /**
-     * Teste la création d'un CurvePoint.
+     * Teste la création d'un CurvePoint en utilisant un ArgumentCaptor pour
+     * capturer et
+     * vérifier l'objet CurvePoint sauvegardé.
      */
     @Test
     public void testCreateCurve() {
-        // Configure le comportement du mock pour la méthode save
-        when(curvePointRepository.save(any(CurvePoint.class))).thenReturn(curvePoint);
+        // Utilisation d'ArgumentCaptor pour capturer l'argument passé au repository
         ArgumentCaptor<CurvePoint> curveCaptor = ArgumentCaptor.forClass(CurvePoint.class);
 
         // Appelle la méthode à tester

@@ -48,12 +48,13 @@ public class RatingServiceImplTest {
     }
 
     /**
-     * Teste la création d'une Rating.
+     * Teste la création d'une Rating en utilisant un ArgumentCaptor pour capturer
+     * et
+     * vérifier l'objet Rating sauvegardé.
      */
     @Test
     public void testCreateRating() {
-        // Configure le comportement du mock pour la méthode save
-        when(ratingRepository.save(any(Rating.class))).thenReturn(rating);
+        // Utilisation d'ArgumentCaptor pour capturer l'argument passé au repository
         ArgumentCaptor<Rating> ratingCaptor = ArgumentCaptor.forClass(Rating.class);
 
         // Appelle la méthode à tester

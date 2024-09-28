@@ -1,6 +1,7 @@
 package com.nnk.springboot.testImpl;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
@@ -44,12 +45,13 @@ public class BidListServiceImplTest {
     }
 
     /**
-     * Teste la création d'une BidList.
+     * Teste la création d'une BidList en utilisant un ArgumentCaptor pour capturer
+     * et
+     * vérifier l'objet BidList sauvegardé.
      */
     @Test
     public void testCreateBidList() {
-        // Configure le comportement du mock pour la méthode save
-        when(bidListRepository.save(any(BidList.class))).thenReturn(bid);
+        // Utilisation d'ArgumentCaptor pour capturer l'argument passé au repository
         ArgumentCaptor<BidList> bidCaptor = ArgumentCaptor.forClass(BidList.class);
 
         // Appelle la méthode à tester
