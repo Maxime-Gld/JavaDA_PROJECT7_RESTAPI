@@ -1,9 +1,14 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.service.impl.BidListServiceImpl;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,11 +19,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class BidListController {
-    // TODO: Inject Bid service
+    @Autowired
+    private BidListServiceImpl bidListService;
 
     @RequestMapping("/bidList/list")
-    public String home(Model model) {
-        // TODO: call service find all bids to show to the view
+    public String home(Model model, HttpServletRequest request) {
+        // récupère la liste des BidList et l'envoie au modèle
+        List<BidList> bidLists = bidListService.getAllBidList();
+        model.addAttribute("bidLists", bidLists);
+        model.addAttribute("httpServletRequest", request);
         return "bidList/list";
     }
 
@@ -29,27 +38,40 @@ public class BidListController {
 
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidList bid, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return bid list
+        // verifie les champs obligatoires
+        // si valid, enregistre le Bid et redirige vers la liste des Bid
+        if (!result.hasErrors()) {
+            bidListService.createBidList(bid);
+            return "redirect:/bidList/list";
+        }
+        // rediriger vers la page d'ajout du Bid
         return "bidList/add";
     }
 
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Bid by Id and to model then show to the form
+        // recupère le BidList à mettre à jour et l'envoie au modèle
+        BidList bid = bidListService.getBidListById(id);
+        model.addAttribute("bidList", bid);
         return "bidList/update";
     }
 
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
             BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Bid and return
-        // list Bid
+        // verifie les champs obligatoires
+        // si valid, mettre a jour le BidList et redirige vers la liste des Bid
+        if (!result.hasErrors()) {
+            bidListService.updateBidList(id, bidList);
+        }
+
         return "redirect:/bidList/list";
     }
 
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Bid by Id and delete the bid, return to Bid list
+        // supprime le BidList et redirige vers la liste des Bid
+        bidListService.deleteBidList(id);
         return "redirect:/bidList/list";
     }
 }
