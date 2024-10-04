@@ -65,10 +65,11 @@ public class CurveServiceImpl implements CurveService {
      * @param curvePointUpdated Le nouveau CurvePoint.
      */
     @Override
-    public void updateCurve(Integer curveId, CurvePoint curvePointUpdated) {
-        Optional<CurvePoint> curvePoint = curvePointRepository.findById(curveId);
+    public void updateCurve(Integer id, CurvePoint curvePointUpdated) {
+        Optional<CurvePoint> curvePoint = curvePointRepository.findById(id);
         if (curvePoint.isPresent()) {
             CurvePoint curvePointFound = curvePoint.get();
+            curvePointFound.setCurveId(curvePointUpdated.getCurveId());
             curvePointFound.setTerm(curvePointUpdated.getTerm());
             curvePointFound.setValue(curvePointUpdated.getValue());
             curvePointRepository.save(curvePointFound);

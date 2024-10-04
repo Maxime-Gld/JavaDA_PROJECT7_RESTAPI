@@ -1,6 +1,8 @@
 package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,9 +21,16 @@ public class BidList {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer BidListId;
+
+    @NotBlank(message = "Account is mandatory")
     String account;
+
+    @NotBlank(message = "Type is mandatory")
     String type;
+
+    @Min(value = 1, message = "Bid quantity must be greater than 0")
     Double bidQuantity;
+
     Double askQuantity;
     Double bid;
     Double ask;
@@ -33,8 +42,10 @@ public class BidList {
     String trader;
     String book;
     String creationName;
+
     @CreationTimestamp
     Timestamp creationDate;
+
     String revisionName;
     Timestamp revisionDate;
     String dealName;
@@ -48,4 +59,19 @@ public class BidList {
         this.bidQuantity = bidQuantity;
     }
 
+    public Integer getId() {
+        return BidListId;
+    }
+
+    public void setId(Integer id) {
+        this.BidListId = id;
+    }
+
+    public Integer getBidListId() {
+        return BidListId;
+    }
+
+    public void setBidListId(Integer id) {
+        this.BidListId = id;
+    }
 }

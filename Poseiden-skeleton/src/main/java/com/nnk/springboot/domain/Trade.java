@@ -18,7 +18,7 @@ public class Trade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Integer tradeId;
+    Integer TradeId;
     String account;
     String type;
     Double buyQuantity;
@@ -44,5 +44,21 @@ public class Trade {
     public Trade(String account, String type) {
         this.account = account;
         this.type = type;
+    }
+
+    public Integer getId() {
+        return TradeId;
+    }
+
+    public void setId(Integer id) {
+        this.TradeId = id;
+    }
+
+    public Integer getTradeId() {
+        return TradeId;
+    }
+
+    public void setTradeId(Integer id) {
+        this.TradeId = id;
     }
 }
