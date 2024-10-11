@@ -1,4 +1,4 @@
-package com.nnk.springboot.config;
+package com.nnk.springboot.service.user;
 
 import java.util.List;
 
