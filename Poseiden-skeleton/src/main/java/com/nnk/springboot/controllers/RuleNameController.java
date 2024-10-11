@@ -1,7 +1,7 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.RuleName;
-import com.nnk.springboot.service.impl.RuleNameServiceImpl;
+import com.nnk.springboot.service.RuleNameService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +17,13 @@ import jakarta.validation.Valid;
 
 @Controller
 public class RuleNameController {
+    // injection de la couche service
+    private final RuleNameService ruleNameService;
+
     @Autowired
-    private RuleNameServiceImpl ruleNameService;
+    public RuleNameController(RuleNameService ruleNameService) {
+        this.ruleNameService = ruleNameService;
+    }
 
     @RequestMapping("/ruleName/list")
     public String home(Model model, HttpServletRequest request) {
@@ -41,7 +46,7 @@ public class RuleNameController {
             ruleNameService.createRuleName(ruleName);
             return "redirect:/ruleName/list";
         }
-        // rediriger vers la page d'ajout du RuleName
+        // rediriger vers la page d'ajout du RuleName avec les erreurs
         return "ruleName/add";
     }
 
@@ -60,8 +65,10 @@ public class RuleNameController {
         // si valid, met à jour le RuleName et redirige vers la liste des RuleNames
         if (!result.hasErrors()) {
             ruleNameService.updateRuleName(id, ruleName);
+            return "redirect:/ruleName/list";
         }
-        return "redirect:/ruleName/list";
+        // rediriger vers la page de modification du RuleName avec les erreurs
+        return "ruleName/update";
     }
 
     @GetMapping("/ruleName/delete/{id}")

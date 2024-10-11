@@ -1,7 +1,7 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.CurvePoint;
-import com.nnk.springboot.service.impl.CurveServiceImpl;
+import com.nnk.springboot.service.CurveService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,9 +18,13 @@ import java.util.List;
 
 @Controller
 public class CurveController {
-    // Inject Curve Point service
+    // injection de la couche service
+    private final CurveService curvePointService;
+
     @Autowired
-    private CurveServiceImpl curvePointService;
+    public CurveController(CurveService curvePointService) {
+        this.curvePointService = curvePointService;
+    }
 
     @RequestMapping("/curvePoint/list")
     public String home(Model model, HttpServletRequest request) {
@@ -44,8 +48,7 @@ public class CurveController {
             curvePointService.createCurve(curvePoint);
             return "redirect:/curvePoint/list";
         }
-
-        // rediriger vers la page d'ajout du CurvePoint
+        // rediriger vers la page d'ajout du CurvePoint avec les erreurs
         return "curvePoint/add";
     }
 
@@ -64,9 +67,10 @@ public class CurveController {
         // si valid, met à jour le CurvePoint et redirige vers la liste des CurvePoints
         if (!result.hasErrors()) {
             curvePointService.updateCurve(id, curvePoint);
+            return "redirect:/curvePoint/list";
         }
-
-        return "redirect:/curvePoint/list";
+        // rediriger vers la page de modification du CurvePoint avec les erreurs
+        return "curvePoint/update";
     }
 
     @GetMapping("/curvePoint/delete/{id}")

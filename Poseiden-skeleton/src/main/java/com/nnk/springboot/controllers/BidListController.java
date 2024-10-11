@@ -1,7 +1,7 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidList;
-import com.nnk.springboot.service.impl.BidListServiceImpl;
+import com.nnk.springboot.service.BidListService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -19,8 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class BidListController {
+    // injection de la couche service
+    private final BidListService bidListService;
+
     @Autowired
-    private BidListServiceImpl bidListService;
+    public BidListController(BidListService bidListService) {
+        this.bidListService = bidListService;
+    }
 
     @RequestMapping("/bidList/list")
     public String home(Model model, HttpServletRequest request) {
@@ -44,7 +49,7 @@ public class BidListController {
             bidListService.createBidList(bid);
             return "redirect:/bidList/list";
         }
-        // rediriger vers la page d'ajout du Bid
+        // rediriger vers la page d'ajout du Bid avec les erreurs
         return "bidList/add";
     }
 
@@ -63,9 +68,10 @@ public class BidListController {
         // si valid, mettre a jour le BidList et redirige vers la liste des Bid
         if (!result.hasErrors()) {
             bidListService.updateBidList(id, bidList);
+            return "redirect:/bidList/list";
         }
-
-        return "redirect:/bidList/list";
+        // rediriger vers la page de modification du Bid avec les erreurs
+        return "bidList/update";
     }
 
     @GetMapping("/bidList/delete/{id}")

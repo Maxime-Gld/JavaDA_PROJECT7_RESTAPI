@@ -1,7 +1,7 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Rating;
-import com.nnk.springboot.service.impl.RatingServiceImpl;
+import com.nnk.springboot.service.RatingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +17,13 @@ import jakarta.validation.Valid;
 
 @Controller
 public class RatingController {
+    // injection de la couche service
+    private RatingService ratingService;
+
     @Autowired
-    private RatingServiceImpl ratingService;
+    public RatingController(RatingService ratingService) {
+        this.ratingService = ratingService;
+    }
 
     @RequestMapping("/rating/list")
     public String home(Model model, HttpServletRequest request) {
@@ -41,7 +46,7 @@ public class RatingController {
             ratingService.createRating(rating);
             return "redirect:/rating/list";
         }
-        // rediriger vers la page d'ajout du Rating
+        // rediriger vers la page d'ajout du Rating avec les erreurs
         return "rating/add";
     }
 
@@ -60,8 +65,10 @@ public class RatingController {
         // si valid, met à jour le Rating et redirige vers la liste des Ratings
         if (!result.hasErrors()) {
             ratingService.updateRating(id, rating);
+            return "redirect:/rating/list";
         }
-        return "redirect:/rating/list";
+        // rediriger vers la page de modification du Rating avec les erreurs
+        return "rating/update";
     }
 
     @GetMapping("/rating/delete/{id}")

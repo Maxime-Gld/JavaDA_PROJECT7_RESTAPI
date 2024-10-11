@@ -1,7 +1,7 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Trade;
-import com.nnk.springboot.service.impl.TradeServiceImpl;
+import com.nnk.springboot.service.TradeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +17,13 @@ import jakarta.validation.Valid;
 
 @Controller
 public class TradeController {
+    // injection de la couche service
+    private final TradeService tradeService;
+
     @Autowired
-    private TradeServiceImpl tradeService;
+    public TradeController(TradeService tradeService) {
+        this.tradeService = tradeService;
+    }
 
     @RequestMapping("/trade/list")
     public String home(Model model, HttpServletRequest request) {
@@ -41,15 +46,14 @@ public class TradeController {
             tradeService.createTrade(trade);
             return "redirect:/trade/list";
         }
+        // rediriger vers la page d'ajout du Trade avec les erreurs
         return "trade/add";
     }
 
     @GetMapping("/trade/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // recupère le Trade à mettre à jour et l'envoie au modèle
-        System.out.println("showUpdateForm: " + id);
         Trade trade = tradeService.getTradeById(id);
-        System.out.println("tradefound: " + trade);
         model.addAttribute("trade", trade);
         return "trade/update";
     }
@@ -61,8 +65,11 @@ public class TradeController {
         // si valid, met à jour le Trade et redirige vers la liste des Trades
         if (!result.hasErrors()) {
             tradeService.updateTrade(id, trade);
+            return "redirect:/trade/list";
         }
-        return "redirect:/trade/list";
+
+        // rediriger vers la page de modification du Trade avec les erreurs
+        return "trade/update";
     }
 
     @GetMapping("/trade/delete/{id}")
