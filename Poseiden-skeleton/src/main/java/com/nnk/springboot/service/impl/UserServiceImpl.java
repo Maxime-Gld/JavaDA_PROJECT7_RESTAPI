@@ -3,6 +3,7 @@ package com.nnk.springboot.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.nnk.springboot.domain.User;
@@ -36,6 +37,8 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User createUser(User user) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -70,12 +73,13 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void updateUser(Integer id, User userUpated) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         Optional<User> userToUpdate = userRepository.findById(id);
         if (userToUpdate.isPresent()) {
             User userFound = userToUpdate.get();
             userFound.setFullname(userUpated.getFullname());
             userFound.setRole(userUpated.getRole());
-            userFound.setPassword(userUpated.getPassword());
+            userFound.setPassword(encoder.encode(userUpated.getPassword()));
             userRepository.save(userFound);
         }
     }
