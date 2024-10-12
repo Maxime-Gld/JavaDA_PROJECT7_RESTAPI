@@ -5,6 +5,22 @@ import com.nnk.springboot.annotation.ValidPassword;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
+/**
+ * Valide un mot de passe selon plusieurs critères : non null, longueur
+ * minimale,
+ * présence d'au moins une lettre majuscule, un chiffre et un caractère spécial.
+ * 
+ * @param password Le mot de passe à valider
+ * @param context  Le contexte de validation qui permet de désactiver le message
+ *                 de violation par défaut
+ *                 et d'ajouter des messages de violation personnalisés.
+ * 
+ * @return {@code true} si le mot de passe respecte tous les critères de
+ *         validation,
+ *         {@code false} sinon. En cas d'invalidité, des messages spécifiques
+ *         sont ajoutés au contexte.
+ * 
+ */
 public class PasswordValidator implements ConstraintValidator<ValidPassword, String> {
 
     @Override
